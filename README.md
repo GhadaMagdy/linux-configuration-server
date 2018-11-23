@@ -114,6 +114,35 @@ Note: The following steps outline how to connect to the instance via your Termin
 
 1. Restart ssh service `sudo service ssh restart`
 
+### Configure the firewall
+1. Check to see if the ufw (the preinstalled ubuntu firewall) is active by running `sudo ufw status`
+
+1. Run `sudo ufw default deny incoming` to set the ufw firewall to block everything coming in
+
+1. Run `sudo ufw default allow outgoing` to set the ufw firewall to allow everything outgoing
+
+1. Run `sudo ufw allow 2200/tcp` to allow all tcp connections for port `2200` so that SSH will work
+
+1. Run `sudo ufw allow www` to set the ufw firewall to allow a basic HTTP server
+
+1. Run `sudo ufw allow 123/udp` to set the ufw firewall to allow NTP
+
+1. Run `sudo ufw enable` to enable the ufw firewall
+
+1. Run `sudo ufw status` to check which ports are open and to see if the ufw is active; if done correctly, it should look like this:
+
+	```
+	To                         Action      From
+	--                         ------      ----
+	22                         ALLOW        Anywhere
+	2200/tcp                   ALLOW       Anywhere
+	80/tcp                     ALLOW       Anywhere
+	123/udp                    ALLOW       Anywhere
+	22 (v6)                    ALLOW        Anywhere (v6)
+	2200/tcp (v6)              ALLOW       Anywhere (v6)
+	80/tcp (v6)                ALLOW       Anywhere (v6)
+	123/udp (v6)               ALLOW       Anywhere (v6)
+	```
 
 ### Configure the local timezone to UTC
 1. Run `sudo dpkg-reconfigure tzdata`, and follow the instructions (UTC is under the 'None of the above' category)
