@@ -102,7 +102,7 @@ Note: The following steps outline how to connect to the instance via your Termin
 
 1. Finally change the owner from root to grader `sudo chown -R grader:grader /home/grader/.ssh`
 
-1. open ne terminal and login with grader by `ssh -i ~/.ssh/grader_key -p 2200 grader@XX.XX.XX.XX` (grader_key is the second file generated        from run command ssh-keygen)
+1. open ne terminal and login with grader by `ssh -i ~/.ssh/grader_key grader@XX.XX.XX.XX` (grader_key is the second file generated from run command ssh-keygen)
 
 1. Run `sudo nano /etc/ssh/sshd_config` (you may asked to do that using root you can switch to root by `sudo su -`)
 
