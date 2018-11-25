@@ -6,7 +6,7 @@ The instructions are written specifically for hosting an app called [Item-catalo
 ## 1. Details specific to the server I set up
 The IP address is 35.180.174.9.
 
-The SSH port used is `22`.
+The SSH port used is `2200`.
 
 The URL to the hosted webpage is: http://35.180.174.9/ or http://ec2-35-180-174-9.eu-west-3.compute.amazonaws.com/.
 
@@ -114,6 +114,17 @@ Note: The following steps outline how to connect to the instance via your Termin
 
 1. Restart ssh service `sudo service ssh restart`
 
+### Change ssh port to 2200
+1. Run `sudo nano /etc/ssh/sshd_config` (you may asked to do that using root you can switch to root by `sudo su -`)
+
+1. find line Port 22
+
+1. change to Port 2200
+
+1. ctrl + x -> y -> enter to save and exit sshd_config file
+
+1. Restart ssh service `sudo service ssh restart`
+
 ### Configure the firewall
 1. Check to see if the ufw (the preinstalled ubuntu firewall) is active by running `sudo ufw status`
 
@@ -127,6 +138,8 @@ Note: The following steps outline how to connect to the instance via your Termin
 
 1. Run `sudo ufw allow 123/udp` to set the ufw firewall to allow NTP
 
+1. Run `sudo ufw deny 22` to deny the default port of ssh
+
 1. Run `sudo ufw enable` to enable the ufw firewall
 
 1. Run `sudo ufw status` to check which ports are open and to see if the ufw is active; if done correctly, it should look like this:
@@ -134,11 +147,11 @@ Note: The following steps outline how to connect to the instance via your Termin
 	```
 	To                         Action      From
 	--                         ------      ----
-	22                         ALLOW        Anywhere
+	22                         DENY        Anywhere
 	2200/tcp                   ALLOW       Anywhere
 	80/tcp                     ALLOW       Anywhere
 	123/udp                    ALLOW       Anywhere
-	22 (v6)                    ALLOW        Anywhere (v6)
+	22 (v6)                    DENY        Anywhere (v6)
 	2200/tcp (v6)              ALLOW       Anywhere (v6)
 	80/tcp (v6)                ALLOW       Anywhere (v6)
 	123/udp (v6)               ALLOW       Anywhere (v6)
